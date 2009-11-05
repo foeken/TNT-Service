@@ -1,3 +1,5 @@
+TNT Webservice plugin (developed by Andre Foeken, Nedap)
+
 # Install pdftops command (on OSX: http://users.phg-online.de/tk/MOSXS/xpdf-tools-3.dmg, default on ubuntu)
 
 # Add these to environment.rb
