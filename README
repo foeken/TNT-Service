@@ -1,0 +1,9 @@
+# Install pdftops command (on OSX: http://users.phg-online.de/tk/MOSXS/xpdf-tools-3.dmg, default on ubuntu)
+
+# Add these to environment.rb
+config.gem "soap4r", :lib => false
+config.gem "ruby-hmac", :lib => false
+
+# Use as follows:
+a = Tnt::TntService.new( "<LICENCE>", "<CUST_ID>", :client_win_id => "<WIN_ID>" )
+a.validate

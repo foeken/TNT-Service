@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.pepto.se/webservices/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.pepto.se/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Upload printed invoices to EasyInvoice a solution by Pepto Systems.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.pepto.se/webservices/">
+      <s:element name="UploadPrintFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientId" />
+            <s:element minOccurs="0" maxOccurs="1" name="printFileData" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintClientId">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="licenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallationInfo" type="tns:ArrayOfClientFile" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClientFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClientFile" type="tns:ClientFile" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClientFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="fileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fileVersion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadPrintFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadPrintFileResult" type="tns:StandardMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StandardMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="link" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isEmpty" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UploadPrintFileLCID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientId" />
+            <s:element minOccurs="0" maxOccurs="1" name="printFileData" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="LCID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadPrintFileLCIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadPrintFileLCIDResult" type="tns:StandardMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecureUploadPrintFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+            <s:element minOccurs="0" maxOccurs="1" name="printFileData" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="hmac" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintClientIdExt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="licenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="clientWinId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LCID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallationInfo" type="tns:ArrayOfClientFile" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecureUploadPrintFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecureUploadPrintFileResult" type="tns:StandardMessageExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="StandardMessageExt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="link" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isEmpty" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isErrorMsg" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSystemNews">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientId" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemNewsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystemNewsResult" type="tns:StandardMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientId" />
+            <s:element minOccurs="1" maxOccurs="1" name="intLCID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatusResult" type="tns:StandardMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHelpExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHelpExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHelpExtResult" type="tns:StandardMessageExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemMessage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientId" />
+            <s:element minOccurs="0" maxOccurs="1" name="messageTypeName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystemMessageResult" type="tns:StandardMessage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemMessageExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+            <s:element minOccurs="0" maxOccurs="1" name="messageTypeName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSystemMessageExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSystemMessageExtResult" type="tns:StandardMessageExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTexts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="lang" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTextsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTextsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLanguages">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLanguagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLanguagesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPageMode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageMode" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="fullColor" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPageModeResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPageMode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPageModeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPageModeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetColorMode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="tns:PrintClientIdExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetColorModeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetColorModeResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UploadPrintFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadPrintFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadPrintFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadPrintFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadPrintFileLCIDSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadPrintFileLCID" />
+  </wsdl:message>
+  <wsdl:message name="UploadPrintFileLCIDSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadPrintFileLCIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecureUploadPrintFileSoapIn">
+    <wsdl:part name="parameters" element="tns:SecureUploadPrintFile" />
+  </wsdl:message>
+  <wsdl:message name="SecureUploadPrintFileSoapOut">
+    <wsdl:part name="parameters" element="tns:SecureUploadPrintFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemNewsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystemNews" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemNewsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystemNewsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHelpExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHelpExt" />
+  </wsdl:message>
+  <wsdl:message name="GetHelpExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHelpExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemMessageSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystemMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemMessageSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystemMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemMessageExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSystemMessageExt" />
+  </wsdl:message>
+  <wsdl:message name="GetSystemMessageExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSystemMessageExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTextsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTexts" />
+  </wsdl:message>
+  <wsdl:message name="GetTextsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTextsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLanguagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLanguages" />
+  </wsdl:message>
+  <wsdl:message name="GetLanguagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLanguagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPageModeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPageMode" />
+  </wsdl:message>
+  <wsdl:message name="SetPageModeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPageModeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPageModeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPageMode" />
+  </wsdl:message>
+  <wsdl:message name="GetPageModeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPageModeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetColorModeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetColorMode" />
+  </wsdl:message>
+  <wsdl:message name="GetColorModeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetColorModeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="EasyInvoiceQueueServiceSoap">
+    <wsdl:operation name="UploadPrintFile">
+      <wsdl:input message="tns:UploadPrintFileSoapIn" />
+      <wsdl:output message="tns:UploadPrintFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadPrintFileLCID">
+      <wsdl:input message="tns:UploadPrintFileLCIDSoapIn" />
+      <wsdl:output message="tns:UploadPrintFileLCIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureUploadPrintFile">
+      <wsdl:input message="tns:SecureUploadPrintFileSoapIn" />
+      <wsdl:output message="tns:SecureUploadPrintFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemNews">
+      <wsdl:input message="tns:GetSystemNewsSoapIn" />
+      <wsdl:output message="tns:GetSystemNewsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <wsdl:input message="tns:GetStatusSoapIn" />
+      <wsdl:output message="tns:GetStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpExt">
+      <wsdl:input message="tns:GetHelpExtSoapIn" />
+      <wsdl:output message="tns:GetHelpExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessage">
+      <wsdl:input message="tns:GetSystemMessageSoapIn" />
+      <wsdl:output message="tns:GetSystemMessageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessageExt">
+      <wsdl:input message="tns:GetSystemMessageExtSoapIn" />
+      <wsdl:output message="tns:GetSystemMessageExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTexts">
+      <wsdl:input message="tns:GetTextsSoapIn" />
+      <wsdl:output message="tns:GetTextsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLanguages">
+      <wsdl:input message="tns:GetLanguagesSoapIn" />
+      <wsdl:output message="tns:GetLanguagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPageMode">
+      <wsdl:input message="tns:SetPageModeSoapIn" />
+      <wsdl:output message="tns:SetPageModeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPageMode">
+      <wsdl:input message="tns:GetPageModeSoapIn" />
+      <wsdl:output message="tns:GetPageModeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetColorMode">
+      <wsdl:input message="tns:GetColorModeSoapIn" />
+      <wsdl:output message="tns:GetColorModeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EasyInvoiceQueueServiceSoap" type="tns:EasyInvoiceQueueServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadPrintFile">
+      <soap:operation soapAction="http://www.pepto.se/webservices/UploadPrintFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadPrintFileLCID">
+      <soap:operation soapAction="http://www.pepto.se/webservices/UploadPrintFileLCID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureUploadPrintFile">
+      <soap:operation soapAction="http://www.pepto.se/webservices/SecureUploadPrintFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemNews">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetSystemNews" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpExt">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetHelpExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessage">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetSystemMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessageExt">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetSystemMessageExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTexts">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetTexts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLanguages">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetLanguages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPageMode">
+      <soap:operation soapAction="http://www.pepto.se/webservices/SetPageMode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPageMode">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetPageMode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetColorMode">
+      <soap:operation soapAction="http://www.pepto.se/webservices/GetColorMode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EasyInvoiceQueueServiceSoap12" type="tns:EasyInvoiceQueueServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadPrintFile">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/UploadPrintFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadPrintFileLCID">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/UploadPrintFileLCID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureUploadPrintFile">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/SecureUploadPrintFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemNews">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetSystemNews" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpExt">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetHelpExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessage">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetSystemMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSystemMessageExt">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetSystemMessageExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTexts">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetTexts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLanguages">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetLanguages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPageMode">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/SetPageMode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPageMode">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetPageMode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetColorMode">
+      <soap12:operation soapAction="http://www.pepto.se/webservices/GetColorMode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EasyInvoiceQueueService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Upload printed invoices to EasyInvoice a solution by Pepto Systems.</wsdl:documentation>
+    <wsdl:port name="EasyInvoiceQueueServiceSoap" binding="tns:EasyInvoiceQueueServiceSoap">
+      <soap:address location="http://www.tntfacturenpost.nl/tnt/queueservice/queueservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="EasyInvoiceQueueServiceSoap12" binding="tns:EasyInvoiceQueueServiceSoap12">
+      <soap12:address location="http://www.tntfacturenpost.nl/tnt/queueservice/queueservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
